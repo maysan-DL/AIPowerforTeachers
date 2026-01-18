@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 04: Google Vids</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+        }
+        /* Gradient for the main title */
+        .vids-gradient {
+            background: linear-gradient(90deg, #4285F4, #9B72CB, #EA4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tab-button {
+            padding: 0.75rem 2rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .tab-button:hover {
+            background-color: #f0f4ff;
+        }
+        .active-tab {
+            color: #4285F4;
+            border-bottom-color: #4285F4;
+            background-color: #e8f0fe;
+        }
+        .tab-content-panel {
+            min-height: 200px;
+        }
+        .activity-header {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .feature-border {
+            border-left: 4px solid #9B72CB;
+        }
+        .generator-section {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .generator-section:last-child {
+            border-bottom: none;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'google-blue': '#4285F4',
+                        'google-green': '#34A853',
+                        'google-yellow': '#FBBC05',
+                        'google-red': '#EA4335',
+                        'google-purple': '#9B72CB',
+                        'google-cyan': '#24C1E0',
+                    },
+                }
+            }
+        }
+        
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content-panel').forEach(panel => panel.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active-tab'));
+            
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            document.getElementById(`button-${tabId}`).classList.add('active-tab');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab('overview');
+        });
+    </script>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-xl shadow-2xl my-8">
+
+        <!-- Module Header -->
+        <header class="mb-10 border-b-4 border-google-purple pb-6">
+            <p class="text-sm font-semibold uppercase text-google-purple mb-1">Module 04</p>
+            <h1 class="text-5xl font-extrabold text-gray-900 mb-2">
+                <span class="vids-gradient">Google Vids</span>
+            </h1>
+            <p class="text-lg text-gray-600">The AI-powered video creation app for work and education that helps you tell stories more effectively.</p>
+        </header>
+
+        <!-- Core Features Section (Tabs) -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-900">Module Workspace</h2>
+            
+            <div class="bg-gray-50 rounded-xl shadow-lg border border-gray-200">
+                
+                <!-- Tab Navigation -->
+                <div id="tab-buttons" class="flex border-b border-gray-200 bg-gray-100 rounded-t-xl">
+                    <button id="button-overview" class="flex-1 tab-button" onclick="openTab('overview')">
+                        <span class="text-xl align-middle mr-1">📽️</span> Overview
+                    </button>
+                    <button id="button-activities" class="flex-1 tab-button" onclick="openTab('activities')">
+                        <span class="text-xl align-middle mr-1">⚡</span> Activities
+                    </button>
+                </div>
+
+                <!-- Tab Content Panels -->
+                <div id="tab-content">
+                    
+                    <!-- Tab 1: Overview -->
+                    <div id="content-overview" class="tab-content-panel hidden p-6">
+                        <h3 class="text-2xl font-bold text-google-purple mb-3">What is Google Vids?</h3>
+                        <p class="text-gray-700 mb-8">
+                            Google Vids is a new AI-powered video creation tool integrated into Google Workspace. It simplifies the video production process by helping you generate scripts, storyboards, and even complete video drafts using assets from your Google Drive.
+                        </p>
+
+                        <!-- Key Features -->
+                        <div class="mb-10">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4 text-center italic">"Help me create a video"</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg feature-border shadow-sm">
+                                    <h5 class="font-bold text-google-purple mb-1">AI Storyboarding</h5>
+                                    <p class="text-sm text-gray-600">Enter a prompt, and Vids creates an initial storyboard with suggested scenes and media.</p>
+                                </div>
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg feature-border shadow-sm">
+                                    <h5 class="font-bold text-google-purple mb-1">Script Generation</h5>
+                                    <p class="text-sm text-gray-600">Automatically generate a script based on your documents or a simple description.</p>
+                                </div>
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg feature-border shadow-sm">
+                                    <h5 class="font-bold text-google-purple mb-1">Stock Library</h5>
+                                    <p class="text-sm text-gray-600">Access millions of high-quality stock videos, images, and background music tracks.</p>
+                                </div>
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg feature-border shadow-sm">
+                                    <h5 class="font-bold text-google-purple mb-1">AI Voiceovers</h5>
+                                    <p class="text-sm text-gray-600">Choose from a variety of natural-sounding AI voices to narrate your project.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Educational Use Cases -->
+                        <div class="mb-10">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">Educational Impact</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="p-5 rounded-xl bg-purple-50 border border-purple-100 shadow-sm">
+                                    <h5 class="font-bold text-google-purple mb-3 flex items-center">
+                                        <span class="text-xl mr-2">👩‍🏫</span> For Teachers
+                                    </h5>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-2">
+                                        <li><strong>Explainers:</strong> Quickly create video lessons for complex topics.</li>
+                                        <li><strong>Announcements:</strong> Make school news updates more engaging.</li>
+                                        <li><strong>Professional Dev:</strong> Share bite-sized training with colleagues.</li>
+                                    </ul>
+                                </div>
+                                <div class="p-5 rounded-xl bg-blue-50 border border-blue-100 shadow-sm">
+                                    <h5 class="font-bold text-google-blue mb-3 flex items-center">
+                                        <span class="text-xl mr-2">🎓</span> For Students
+                                    </h5>
+                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-2">
+                                        <li><strong>Digital Portfolios:</strong> Showcase work through video summaries.</li>
+                                        <li><strong>Video Projects:</strong> Collaborative storytelling for history or science.</li>
+                                        <li><strong>Presentations:</strong> Replace static slides with dynamic video content.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Activities -->
+                    <div id="content-activities" class="tab-content-panel hidden">
+                        
+                        <!-- Activity 1: The AI Storyboard -->
+                        <div class="generator-section">
+                            <div class="activity-header flex items-center">
+                                <span class="text-2xl mr-3">🪄</span>
+                                <h3 class="text-xl font-bold text-google-blue">Activity: The AI Storyboard</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Use AI to generate a full storyboard for a school project or lesson.</p>
+                            <div class="p-4 rounded-xl bg-blue-50 border-l-4 border-google-blue mb-4">
+                                <ul class="list-decimal list-inside text-gray-700 text-sm space-y-1">
+                                    <li>Open <strong>Google Vids</strong> from your Google Workspace.</li>
+                                    <li>Select <strong>"Help me create a video"</strong>.</li>
+                                    <li>Enter your topic and desired goal.</li>
+                                    <li><em>Tip: In Step 4 of the creation wizard, toggle the "Style" options to find a visual theme that matches your subject.</em></li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200 font-mono text-xs">
+                                <p class="font-bold text-gray-400 mb-1 uppercase text-[10px]">Sample Prompt:</p>
+                                <pre class="whitespace-pre-wrap text-gray-700">Create a 2-minute video for 6th-grade students about the importance of water conservation. Make it upbeat, educational, and include a call to action at the end.</pre>
+                            </div>
+                        </div>
+
+                        <!-- Activity 2: Scripting with Gemini -->
+                        <div class="generator-section">
+                            <div class="activity-header flex items-center">
+                                <span class="text-2xl mr-3">✍️</span>
+                                <h3 class="text-xl font-bold text-google-red">Activity: Multi-Modal Scripting</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Generate a script by pulling information from a specific Google Doc or Slide deck.</p>
+                            <div class="p-4 rounded-xl bg-red-50 border-l-4 border-google-red mb-4">
+                                <ul class="list-decimal list-inside text-gray-700 text-sm space-y-1">
+                                    <li>Start a new video project.</li>
+                                    <li>Choose <strong>"Use a file from Drive"</strong> in the prompt box.</li>
+                                    <li>Select a document containing your lesson notes.</li>
+                                    <li><em>Tip: After the script is generated, use the "Voiceover" menu to preview different AI accents to find the one that sounds most professional.</em></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Activity 3: Interactive Recap -->
+                        <div class="generator-section">
+                            <div class="activity-header flex items-center">
+                                <span class="text-2xl mr-3">🚀</span>
+                                <h3 class="text-xl font-bold text-google-green">Activity: Final Project Draft</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Finalize your draft by adding transitions and background music.</p>
+                            <div class="p-4 rounded-xl bg-green-50 border-l-4 border-google-green">
+                                <ul class="list-decimal list-inside text-gray-700 text-sm space-y-1">
+                                    <li>Refine your scenes by clicking <strong>"Replace Media"</strong>.</li>
+                                    <li>Add background music from the <strong>Stock Library</strong>.</li>
+                                    <li>Share the video link with a colleague for feedback.</li>
+                                    <li><em>Tip: Use the "Recording" feature if you want to record your own face/screen alongside the AI content for a personal touch.</em></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Footer -->
+        <footer class="mt-8 p-6 bg-purple-50 rounded-xl border-l-4 border-google-purple shadow-md">
+            <p class="text-gray-700">
+                Google Vids lowers the barrier to video production, allowing educators and students to focus on <strong>storytelling and content</strong> rather than complex editing software.
+            </p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

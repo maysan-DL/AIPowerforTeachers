@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Power for Teachers - Module 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* CORE SETUP */
+        * { box-sizing: border-box; }
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container-wrapper {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .slide-container {
+            background-color: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 720px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Accents */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Tabs Styling */
+        .tab-nav {
+            display: inline-flex;
+            flex-wrap: wrap;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            z-index: 10;
+            gap: 4px;
+        }
+        .tab-btn {
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #64748b;
+            transition: all 0.3s;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: #ffffff;
+            color: #2563eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Bento Grid Architecture */
+        .bento-grid {
+            display: grid;
+            gap: 20px;
+            flex-grow: 1;
+            z-index: 5;
+        }
+
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .bento-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .icon-wrapper {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            font-size: 20px;
+        }
+
+        /* Tab Visibility */
+        .tab-content {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-tag {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: auto;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .tool-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            margin-right: 6px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-wrapper">
+    <div class="slide-container">
+        <!-- Header -->
+        <div class="mb-6 z-10">
+            <div class="flex items-center gap-2 mb-1">
+                <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">Module 01</span>
+                <span class="text-slate-400 text-[10px] font-bold tracking-widest uppercase">Technology Empowers Education</span>
+            </div>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">AI Power for Teachers</h1>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="showTab('fundamentals')">1. Fundamentals of AI</button>
+            <button class="tab-btn" onclick="showTab('ethics')">2. Ethical Use of AI</button>
+            <button class="tab-btn" onclick="showTab('what-is-prompt')">3. What is Prompt</button>
+            <button class="tab-btn" onclick="showTab('prompting')">4. Art of Prompting</button>
+        </div>
+
+        <!-- Tab 1: Fundamentals -->
+        <div id="fundamentals" class="tab-content active">
+            <div class="bento-grid grid-cols-1 md:grid-cols-3 grid-rows-[auto_1fr]">
+                <div class="bento-card col-span-1 md:col-span-3 bg-blue-50/50 border-blue-100 flex-row gap-8 items-center">
+                    <div class="flex-shrink-0">
+                        <div class="icon-wrapper bg-blue-600 text-white mb-0 w-16 h-16 text-2xl">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="card-tag">Definition</div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">What is Artificial Intelligence?</h3>
+                        <p class="text-slate-600 leading-relaxed text-lg max-w-4xl">
+                            The science of teaching machines to mimic <span class="text-blue-600 font-bold">intelligent human behaviours</span>. Unlike traditional software, AI systems are taught and trained using computer programming that learns and adapts over time.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Machine Learning Card -->
+                <div class="bento-card border-t-4 border-t-emerald-500">
+                    <div class="icon-wrapper bg-emerald-50 text-emerald-600">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Machine Learning (ML)</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">A method of teaching machines to learn and improve autonomously from massive amounts of data.</p>
+                    
+                    <div class="mb-6">
+                        <span class="text-[10px] font-bold text-emerald-600 uppercase block mb-2">Google & Education Tools</span>
+                        <div class="flex flex-wrap">
+                            <span class="tool-pill"><i class="fa-solid fa-chalkboard-user mr-1 text-emerald-500"></i> Classroom Practice Sets</span>
+                            <span class="tool-pill"><i class="fa-solid fa-language mr-1 text-emerald-500"></i> Duolingo</span>
+                            <span class="tool-pill"><i class="fa-solid fa-magnifying-glass mr-1 text-emerald-500"></i> Google Lens</span>
+                        </div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="text-[10px] font-bold text-emerald-600 uppercase">Classroom Example</span>
+                        <p class="text-[12px] text-slate-600 mt-1 italic leading-relaxed">Google Classroom uses ML to suggest helpful hints to students based on where they get stuck in a math problem.</p>
+                    </div>
+                </div>
+
+                <!-- LLM Card -->
+                <div class="bento-card border-t-4 border-t-amber-500">
+                    <div class="icon-wrapper bg-amber-50 text-amber-600">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Large Language Models (LLMs)</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Advanced AI models trained to understand, predict, and generate human language with nuance.</p>
+                    
+                    <div class="mb-6">
+                        <span class="text-[10px] font-bold text-amber-600 uppercase block mb-2">Google & Education Tools</span>
+                        <div class="flex flex-wrap">
+                            <span class="tool-pill"><i class="fa-solid fa-gem mr-1 text-amber-500"></i> Gemini</span>
+                            <span class="tool-pill"><i class="fa-solid fa-book mr-1 text-amber-500"></i> NotebookLM</span>
+                            <span class="tool-pill"><i class="fa-solid fa-pen-fancy mr-1 text-amber-500"></i> Help me Write (Docs)</span>
+                        </div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="text-[10px] font-bold text-amber-600 uppercase">Classroom Example</span>
+                        <p class="text-[12px] text-slate-600 mt-1 italic leading-relaxed">NotebookLM creates personalized study guides and FAQs from your own classroom lecture notes and PDFs.</p>
+                    </div>
+                </div>
+
+                <!-- Gen AI Card -->
+                <div class="bento-card border-t-4 border-t-blue-500">
+                    <div class="icon-wrapper bg-blue-50 text-blue-600">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Generative AI (Gen AI)</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Trained to create entirely new content including text, images, code, audio, and videos.</p>
+                    
+                    <div class="mb-6">
+                        <span class="text-[10px] font-bold text-blue-600 uppercase block mb-2">Google & Education Tools</span>
+                        <div class="flex flex-wrap">
+                            <span class="tool-pill"><i class="fa-solid fa-image mr-1 text-blue-500"></i> ImageFX (by Google)</span>
+                            <span class="tool-pill"><i class="fa-solid fa-chart-line mr-1 text-blue-500"></i> Help me Organize (Sheets)</span>
+                            <span class="tool-pill"><i class="fa-solid fa-music mr-1 text-blue-500"></i> MusicFX</span>
+                        </div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="text-[10px] font-bold text-blue-600 uppercase">Classroom Example</span>
+                        <p class="text-[12px] text-slate-600 mt-1 italic leading-relaxed">Generating custom, copyright-free historical illustrations for a history presentation using ImageFX prompts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Ethical Use -->
+        <div id="ethics" class="tab-content">
+            <div class="bento-grid grid-cols-1 md:grid-cols-4 grid-rows-[auto_1fr] gap-4">
+                <div class="bento-card col-span-1 md:col-span-4 bg-rose-50 border-rose-100 flex-row gap-8 items-center py-6">
+                    <div class="flex-shrink-0">
+                        <div class="icon-wrapper bg-rose-600 text-white mb-0 w-14 h-14 text-xl">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card-tag">Core Principles</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Ethical Use of AI in Education</h3>
+                        <p class="text-slate-600 text-sm">Navigating the challenges of AI implementation while ensuring a safe learning environment.</p>
+                    </div>
+                </div>
+
+                <div class="bento-card border-t-4 border-t-purple-500">
+                    <div class="icon-wrapper bg-purple-50 text-purple-600">
+                        <i class="fa-solid fa-ghost"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Hallucination</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">AI can sometimes generate facts that sound convincing but are entirely <span class="text-purple-600 font-bold">incorrect</span>.</p>
+                </div>
+
+                <div class="bento-card border-t-4 border-t-indigo-500">
+                    <div class="icon-wrapper bg-indigo-50 text-indigo-600">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Bias & Fairness</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">AI reflects biases from its training data. We must ensure outputs do not promote <span class="text-indigo-600 font-bold">stereotypes</span>.</p>
+                </div>
+
+                <div class="bento-card border-t-4 border-t-cyan-500">
+                    <div class="icon-wrapper bg-cyan-50 text-cyan-600">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Data Privacy</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Never input <span class="text-cyan-600 font-bold">Personally Identifiable Information (PII)</span> into open AI platforms.</p>
+                </div>
+
+                <div class="bento-card border-t-4 border-t-emerald-500 bg-white">
+                    <div class="icon-wrapper bg-emerald-50 text-emerald-600">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Academic Integrity</h3>
+                    <p class="text-sm leading-relaxed text-slate-500">Focus on the <span class="text-emerald-600 font-bold">process</span>. Use AI for brainstorming, ensuring final work reflects student mastery.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: What is Prompt -->
+        <div id="what-is-prompt" class="tab-content">
+            <div class="bento-grid grid-cols-1 md:grid-cols-3 grid-rows-[auto_1fr] gap-5">
+                <div class="bento-card col-span-1 md:col-span-3 bg-amber-50 border-amber-100 flex-row gap-8 items-center py-6">
+                    <div class="flex-shrink-0">
+                        <div class="icon-wrapper bg-amber-500 text-white mb-0 w-14 h-14 text-xl">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card-tag">Instructional Input</div>
+                        <h3 class="text-2xl font-bold text-slate-800">What is a Prompt?</h3>
+                        <p class="text-slate-600 text-sm">A prompt is the <strong>input</strong> or <strong>instruction</strong> given to an AI model to guide its output.</p>
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-3 pt-2">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">Different ways to prompt AI</h4>
+                </div>
+
+                <div class="bento-card border-t-4 border-t-blue-500">
+                    <div class="icon-wrapper bg-blue-50 text-blue-600">
+                        <i class="fa-solid fa-keyboard"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">1. Type Text</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Directly communicate instructions or questions to the AI.</p>
+                    <div class="example-box bg-slate-50 border-blue-200">
+                        <p class="text-[13px] font-semibold text-blue-700 italic">"Draft a 3-day lesson plan for Year 5 students about the water cycle."</p>
+                    </div>
+                </div>
+
+                <div class="bento-card border-t-4 border-t-rose-500">
+                    <div class="icon-wrapper bg-rose-50 text-rose-600">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">2. Upload Picture</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Provide visual context for the AI to analyze or describe.</p>
+                    <div class="example-box bg-slate-50 border-rose-200">
+                        <p class="text-[13px] font-semibold text-rose-700 italic">📷 [Upload textbook diagram] + "Identify the key components in this cell structure."</p>
+                    </div>
+                </div>
+
+                <div class="bento-card border-t-4 border-t-indigo-500">
+                    <div class="icon-wrapper bg-indigo-50 text-indigo-600">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">3. Upload Files</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Input existing documents for processing or reference.</p>
+                    <div class="example-box bg-slate-50 border-indigo-200">
+                        <p class="text-[13px] font-semibold text-indigo-700 italic">📄 [Upload student essay] + "Generate a feedback rubric based on this writing."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Art of Prompting -->
+        <div id="prompting" class="tab-content">
+            <div class="bento-grid grid-cols-1 md:grid-cols-5 gap-5">
+                <!-- Anatomy Header -->
+                <div class="bento-card col-span-1 md:col-span-5 !flex-row items-center gap-6 py-6 bg-blue-600 text-white border-none">
+                    <div class="text-4xl"><i class="fa-solid fa-pen-nib"></i></div>
+                    <div>
+                        <h3 class="text-2xl font-bold">Anatomy of a Prompt</h3>
+                        <p class="text-blue-100 text-sm">Follow these 5 components for high-quality results.</p>
+                    </div>
+                </div>
+
+                <!-- The 5 Components -->
+                <div class="bento-card">
+                    <div class="icon-wrapper bg-indigo-50 text-indigo-600">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1 text-base">1. Persona</h3>
+                    <p class="text-[11px] text-slate-500 leading-snug">Who is the AI acting as? (e.g. Science Teacher)</p>
+                </div>
+                <div class="bento-card">
+                    <div class="icon-wrapper bg-rose-50 text-rose-600">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1 text-base">2. Aim</h3>
+                    <p class="text-[11px] text-slate-500 leading-snug">What is the clear objective? (e.g. Write a quiz)</p>
+                </div>
+                <div class="bento-card">
+                    <div class="icon-wrapper bg-emerald-50 text-emerald-600">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1 text-base">3. Recipients</h3>
+                    <p class="text-[11px] text-slate-500 leading-snug">Who is the audience? (e.g. Year 9 students)</p>
+                </div>
+                <div class="bento-card">
+                    <div class="icon-wrapper bg-amber-50 text-amber-600">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1 text-base">4. Theme</h3>
+                    <p class="text-[11px] text-slate-500 leading-snug">What is the tone? (e.g. Fun & engaging)</p>
+                </div>
+                <div class="bento-card">
+                    <div class="icon-wrapper bg-purple-50 text-purple-600">
+                        <i class="fa-solid fa-table-list"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1 text-base">5. Structure</h3>
+                    <p class="text-[11px] text-slate-500 leading-snug">Desired format? (e.g. A table)</p>
+                </div>
+
+                <!-- Example prompt bar -->
+                <div class="bento-card col-span-1 md:col-span-5 bg-blue-50/50 border-dashed border-2 border-blue-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-[10px] font-black bg-blue-600 text-white px-2 py-0.5 rounded uppercase">Sample Prompt</span>
+                    </div>
+                    <p class="text-slate-700 font-medium italic text-lg leading-relaxed">
+                        "You are an <span class="text-indigo-600 font-bold">experienced Biology teacher</span>. Create a <span class="text-rose-600 font-bold">quiz</span> for <span class="text-emerald-600 font-bold">high school students</span> about photosynthesis. Use a <span class="text-amber-600 font-bold">professional tone</span> and present the output in a <span class="text-purple-600 font-bold">bulleted list</span>."
+                    </p>
+                </div>
+
+                <!-- Refinement Process Section -->
+                <div class="col-span-1 md:col-span-5 pt-4">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="h-px bg-slate-200 flex-grow"></div>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">Refining the Conversation</h4>
+                        <div class="h-px bg-slate-200 flex-grow"></div>
+                    </div>
+                </div>
+
+                <!-- The Refinement Loop -->
+                <div class="bento-card col-span-1 md:col-span-3 border-l-4 border-l-orange-500 bg-orange-50/20">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800">The Iteration Cycle</h3>
+                            <p class="text-xs text-slate-500">Prompting is a dialogue, not a one-time command.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white p-5 rounded-xl border border-orange-100 shadow-sm">
+                            <div class="text-[10px] font-black text-orange-500 uppercase mb-2">Step 1</div>
+                            <div class="text-sm font-bold text-slate-800 mb-2">Evaluate</div>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">Check if the output meets your goals. Is it too long? Too complex? Missing key data?</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-orange-100 shadow-sm">
+                            <div class="text-[10px] font-black text-orange-500 uppercase mb-2">Step 2</div>
+                            <div class="text-sm font-bold text-slate-800 mb-2">Adjust</div>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">Add new constraints. "Add a glossary," "Simplify for Year 3," or "Focus on Chapter 2."</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-orange-100 shadow-sm">
+                            <div class="text-[10px] font-black text-orange-500 uppercase mb-2">Step 3</div>
+                            <div class="text-sm font-bold text-slate-800 mb-2">Iterate</div>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">Reply to the AI. "Great, now turn that quiz into a lesson plan table."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Tips: Specific Prompts = Better Outputs -->
+                <div class="bento-card col-span-1 md:col-span-2 bg-slate-900 text-white border-none">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
+                            <i class="fa-solid fa-lightbulb text-sm text-white"></i>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400">Pro Tips</span>
+                    </div>
+                    <h3 class="font-bold text-base mb-4">Specific Prompts = Better Outputs</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-500 text-xs"></i>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase">Vague</span>
+                            </div>
+                            <p class="text-xs text-slate-300 italic">"Write a lesson about history."</p>
+                        </div>
+
+                        <div class="p-4 bg-blue-900/30 rounded-lg border border-blue-800/50">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>
+                                <span class="text-[10px] font-bold text-blue-400 uppercase">Specific</span>
+                            </div>
+                            <p class="text-xs text-blue-50 leading-relaxed">"Write a 45-minute lesson plan for 14-year-olds about the industrial revolution, including a 5-minute warm-up activity and a closing debate prompt."</p>
+                        </div>
+
+                        <p class="text-[11px] text-slate-400 mt-2">
+                            <i class="fa-solid fa-info-circle mr-1"></i> The more context you provide, the less "hallucination" occurs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>

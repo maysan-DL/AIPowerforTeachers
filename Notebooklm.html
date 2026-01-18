@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 03: NotebookLM Deep Dive</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+        }
+        /* Custom Google-themed gradient for the main title */
+        .notebook-gradient {
+            background: linear-gradient(90deg, #669df6, #4285F4, #34a853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'google-blue': '#4285F4',
+                        'google-green': '#34A853',
+                        'google-yellow': '#FBBC05',
+                        'google-red': '#EA4335',
+                        'google-purple': '#9B72CB',
+                        'notebook-bg': '#e8f0fe',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-xl shadow-2xl my-8">
+
+        <!-- Module Header (Slide 13) -->
+        <header class="mb-10 border-b-4 border-google-blue pb-6">
+            <p class="text-sm font-semibold uppercase text-google-blue mb-1">Module 04</p>
+            <h1 class="text-5xl font-extrabold text-gray-900 mb-2">
+                <span class="notebook-gradient">NotebookLM</span>
+            </h1>
+            <p class="text-lg text-gray-600">Your AI-powered research and study guide generator.</p>
+        </header>
+
+        <!-- What is NotebookLM? (Slide 14) -->
+        <section class="mb-12 p-6 bg-notebook-bg rounded-xl border border-blue-200">
+            <h2 class="text-2xl font-bold mb-4 text-google-blue flex items-center">
+                <span class="text-3xl mr-2">📚</span> What is NotebookLM?
+            </h2>
+            <p class="text-lg mb-4 text-gray-700">
+                NotebookLM is a research tool powered by Large Language Models (LLMs) that acts as a 
+                <strong class="font-bold text-gray-900">virtual research assistant</strong>.
+            </p>
+            <p class="text-gray-700">
+                It automatically surfaces and summarizes information directly from your uploaded documents, 
+                helping you synthesize complex information and quickly find answers.
+            </p>
+            <div class="mt-4 bg-white p-3 rounded-lg border-l-4 border-google-blue text-sm italic text-gray-600">
+                <p>Key Action: Upload your research, notes, class materials, or other resources into NotebookLM to begin.</p>
+            </div>
+        </section>
+
+        <!-- NotebookLM Benefits (Slide 15) -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Benefits for Learning and Teaching</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <div class="p-4 rounded-xl feature-card bg-green-50 border-l-4 border-google-green">
+                    <h3 class="font-bold text-google-green text-xl mb-1">Saves Time & Effort</h3>
+                    <p class="text-gray-700">Automates summarizing and question answering from long documents.</p>
+                </div>
+
+                <div class="p-4 rounded-xl feature-card bg-red-50 border-l-4 border-google-red">
+                    <h3 class="font-bold text-google-red text-xl mb-1">Generates Ideas</h3>
+                    <p class="text-gray-700">Facilitates brainstorming and creative idea generation for projects or lessons.</p>
+                </div>
+
+                <div class="p-4 rounded-xl feature-card bg-yellow-50 border-l-4 border-google-yellow">
+                    <h3 class="font-bold text-google-yellow text-xl mb-1">Identifies Connections</h3>
+                    <p class="text-gray-700">Links concepts and insights across multiple uploaded sources.</p>
+                </div>
+
+                <div class="p-4 rounded-xl feature-card bg-blue-50 border-l-4 border-google-blue">
+                    <h3 class="font-bold text-google-blue text-xl mb-1">Fosters Critical Thinking</h3>
+                    <p class="text-gray-700">Encourages deep analysis by finding contradictions or missing information.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How NotebookLM Works: The 3 Components (Slide 16-18) -->
+        <section class="mb-12 pt-6 border-t border-gray-200">
+            <h2 class="text-2xl font-bold mb-8 text-gray-900 text-center">3 Main Components of NotebookLM</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- 1. Sources (Slide 17) -->
+                <div class="text-center p-6 rounded-xl bg-gray-50 border-2 border-google-blue shadow-lg">
+                    <div class="text-4xl mb-3 text-google-blue">📄</div>
+                    <h3 class="text-xl font-bold mb-2">1. Sources</h3>
+                    <p class="text-sm text-gray-600 mb-3">The foundation of your knowledge base.</p>
+                    <ul class="list-disc list-inside text-left text-sm mx-auto w-fit text-gray-700 space-y-1">
+                        <li>Supported files: PDF, Docs, Slides, TXT.</li>
+                        <li>Limit: Up to 50 sources per notebook.</li>
+                        <li>Source content limit: 500k words per document.</li>
+                    </ul>
+                </div>
+
+                <!-- 2. Notes Panel (Slide 18) -->
+                <div class="text-center p-6 rounded-xl bg-gray-50 border-2 border-google-green shadow-lg">
+                    <div class="text-4xl mb-3 text-google-green">💬</div>
+                    <h3 class="text-xl font-bold mb-2">2. Notes Panel (Grounded AI)</h3>
+                    <p class="text-sm text-gray-600">The safe space for research and analysis.</p>
+                    <ul class="list-disc list-inside text-left text-sm mx-auto w-fit text-gray-700 space-y-1">
+                        <li>Only answers based on your uploaded sources.</li>
+                        <li><strong class="font-bold text-google-green">Citations</strong> are provided for every response.</li>
+                        <li>Ideal for analyzing contradictions or missing data.</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Assistant (Slide 16) -->
+                <div class="text-center p-6 rounded-xl bg-gray-50 border-2 border-google-yellow shadow-lg">
+                    <div class="text-4xl mb-3 text-google-yellow">🧠</div>
+                    <h3 class="text-xl font-bold mb-2">3. Assistant</h3>
+                    <p class="text-sm text-gray-600">The general area for creative ideas.</p>
+                    <p class="text-sm text-gray-700 mt-2">
+                        Use this area for brainstorming, creative writing, or generating ideas that don't need to be strictly sourced.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Notebook Features (Slide 19-23) -->
+        <section class="mb-12 pt-6 border-t border-gray-200">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Key Feature Generators</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                
+                <!-- Audio Overview (Slide 19) -->
+                <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 feature-card">
+                    <p class="text-xl font-bold text-indigo-700">🎧 Audio Overview</p>
+                    <p class="text-sm text-gray-600">Generates a brief audio briefing summarizing the notebook's sources.</p>
+                </div>
+
+                <!-- FAQs (Slide 20) -->
+                <div class="p-4 rounded-xl bg-pink-50 border border-pink-200 feature-card">
+                    <p class="text-xl font-bold text-pink-700">❓ FAQs</p>
+                    <p class="text-sm text-gray-600">Automatically generates Frequently Asked Questions and answers based on your sources.</p>
+                </div>
+
+                <!-- Study Guide (Slide 21) -->
+                <div class="p-4 rounded-xl bg-teal-50 border border-teal-200 feature-card">
+                    <p class="text-xl font-bold text-teal-700">📝 Study Guide</p>
+                    <p class="text-sm text-gray-600">Includes quiz questions, practice essay prompts, and a glossary of key terms.</p>
+                </div>
+
+                <!-- Briefing Doc (Slide 22) -->
+                <div class="p-4 rounded-xl bg-orange-50 border border-orange-200 feature-card">
+                    <p class="text-xl font-bold text-orange-700">📄 Briefing Doc</p>
+                    <p class="text-sm text-gray-600">Creates a concise, summarized document of all your sources.</p>
+                </div>
+
+                <!-- Table of Contents (Slide 23) -->
+                <div class="p-4 rounded-xl bg-lime-50 border border-lime-200 feature-card">
+                    <p class="text-xl font-bold text-lime-700">📖 Table of Contents</p>
+                    <p class="text-sm text-gray-600">Automatically generates a structured TOC for your source documents.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases (Slide 24-25) -->
+        <section class="mb-12 pt-6 border-t border-gray-200">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Use Cases for Education</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Use Case 1: Streamline Research (Teacher) -->
+                <div class="p-5 rounded-xl bg-gray-100 border border-gray-300">
+                    <h3 class="text-xl font-bold text-google-red mb-2 flex items-center">
+                        <span class="mr-2">🧑‍🏫</span> Teacher: Streamline Research
+                    </h3>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-2">
+                        <li>Upload curriculum documents or research papers.</li>
+                        <li>Use the Notes Panel to instantly find and summarize specific information for lesson planning.</li>
+                        <li>Generate a Briefing Doc to share with substitute teachers.</li>
+                    </ul>
+                </div>
+
+                <!-- Use Case 2: Personalized Learning (Student) -->
+                <div class="p-5 rounded-xl bg-gray-100 border border-gray-300">
+                    <h3 class="text-xl font-bold text-google-blue mb-2 flex items-center">
+                        <span class="mr-2">🧑‍🎓</span> Student: Personalized Learning
+                    </h3>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-2">
+                        <li>Upload class notes, textbooks, and reading materials.</li>
+                        <li>Generate a Study Guide and FAQs to prepare for exams.</li>
+                        <li>Ask complex questions and receive grounded, cited answers for deeper understanding.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quality Check Callout (Slide 26) -->
+        <section class="p-6 bg-yellow-100 rounded-xl border-4 border-google-yellow shadow-md">
+            <h3 class="text-xl font-bold text-gray-900 mb-2 flex items-center">
+                <span class="text-2xl mr-2 text-google-yellow">⚠️</span> The Importance of Quality Sources
+            </h3>
+            <p class="text-gray-700">
+                Remember: NotebookLM is only as good as the information it is given. If your sources are biased, 
+                outdated, or incomplete, the output generated by the AI will reflect those limitations. 
+                Always ensure the quality of your uploaded documents.
+            </p>
+        </section>
+
+    </div>
+
+</body>
+</html>

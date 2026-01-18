@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 02: Gemini Features</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+        }
+        /* Gradient for the main title */
+        .gemini-gradient {
+            background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tab-button {
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .tab-button:hover {
+            background-color: #f0f4ff;
+        }
+        .active-tab {
+            color: #4285F4; /* Google Blue */
+            border-bottom-color: #4285F4;
+            background-color: #e8f0fe;
+        }
+        .tab-content-panel {
+            min-height: 200px; /* Ensure content box doesn't collapse */
+        }
+        /* Styling for the activity headers */
+        .activity-header {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .activity-section {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .activity-section:last-child {
+            border-bottom: none;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'google-blue': '#4285F4',
+                        'google-green': '#34A853',
+                        'google-yellow': '#FBBC05',
+                        'google-red': '#EA4335',
+                        'google-purple': '#9B72CB',
+                        'google-cyan': '#24C1E0',
+                    },
+                }
+            }
+        }
+        
+        /**
+         * Switches the active feature tab.
+         */
+        function openFeatureTab(featureId) {
+            // 1. Hide all content panels
+            document.querySelectorAll('.tab-content-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+
+            // 2. Deactivate all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active-tab');
+            });
+
+            // 3. Activate the selected content panel and button
+            document.getElementById(`content-${featureId}`).classList.remove('hidden');
+            document.getElementById(`button-${featureId}`).classList.add('active-tab');
+        }
+
+        // Initialize the first tab (Gems) on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('content-gems')) {
+                openFeatureTab('gems');
+            }
+        });
+    </script>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-xl shadow-2xl my-8">
+
+        <!-- Module Header -->
+        <header class="mb-10 border-b-4 border-google-blue pb-6">
+            <p class="text-sm font-semibold uppercase text-google-blue mb-1">Module 02</p>
+            <h1 class="text-5xl font-extrabold text-gray-900 mb-2">
+                <span class="gemini-gradient">Gemini Features</span>
+            </h1>
+            <p class="text-lg text-gray-600">Exploring the powerful tools available within the Gemini ecosystem for education.</p>
+        </header>
+
+        <!-- Core Features Section (Tabs) -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-900">Key Capabilities</h2>
+            
+                <div class="bg-gray-50 rounded-xl shadow-lg border border-gray-200">
+                    
+                    <!-- Tab Navigation (Buttons) -->
+                    <div id="tab-buttons" class="flex overflow-x-auto border-b border-gray-200 bg-gray-100 rounded-t-xl">
+                        <button id="button-gems" class="tab-button" onclick="openFeatureTab('gems')">
+                            <span class="text-2xl align-middle mr-1">💎</span> Gems
+                        </button>
+                        <button id="button-research" class="tab-button" onclick="openFeatureTab('research')">
+                            <span class="text-2xl align-middle mr-1">🔬</span> Deep Research
+                        </button>
+                        <button id="button-canvas" class="tab-button" onclick="openFeatureTab('canvas')">
+                            <span class="text-2xl align-middle mr-1">🎨</span> Canvas
+                        </button>
+                        <button id="button-learning" class="tab-button" onclick="openFeatureTab('learning')">
+                            <span class="text-2xl align-middle mr-1">🧭</span> Guided Learning
+                        </button>
+                        <button id="button-images" class="tab-button" onclick="openFeatureTab('images')">
+                            <span class="text-2xl align-middle mr-1">🖼️</span> Create Images
+                        </button>
+                    </div>
+
+                    <!-- Tab Content Panels -->
+                    <div id="tab-content" class="p-6">
+                        
+                        <!-- Content 1: Gems -->
+                        <div id="content-gems" class="tab-content-panel hidden">
+                            <h3 class="text-2xl font-bold text-google-blue mb-3">💎 Gems (Personalized Shortcuts)</h3>
+                            <p class="text-gray-700 mb-4">
+                                Gems are personalized, pre-set prompts that allow you to save your most frequent and complex instructions. By creating a Gem, you establish a consistent format and tone for repeatable tasks, turning multi-step operations into a one-click shortcut.
+                            </p>
+                            <ul class="list-disc list-inside ml-4 text-md text-gray-600 space-y-2 p-3 bg-blue-50 rounded-md border border-blue-200">
+                                <li><strong>Focus:</strong> Ensures a consistent format, style, and persona across repeated tasks.</li>
+                                <li><strong>Benefit:</strong> Maximizes efficiency by minimizing the need to re-type complex prompts.</li>
+                                <li><strong>Example:</strong> A "Create Lesson Plan" Gem that automatically follows your desired template.</li>
+                            </ul>
+
+                            <!-- Start of Hands-On Activity -->
+                            <div class="mt-8 pt-6 border-t border-gray-300">
+                                <div class="activity-header flex items-center mb-4">
+                                    <span class="text-3xl mr-3 text-google-purple">💎</span>
+                                    <h3 class="text-2xl font-bold text-google-purple">Activity: Create a Storybook Gem</h3>
+                                </div>
+                                
+                                <ol class="space-y-4">
+                                    <li class="p-4 rounded-xl bg-purple-50 border-l-4 border-google-purple shadow-sm">
+                                        <h4 class="font-bold text-gray-700 mb-2">Steps:</h4>
+                                        <ul class="list-decimal list-inside text-gray-700 space-y-1 ml-2">
+                                            <li>Go to <a href="https://gemini.google.com" target="_blank" class="text-blue-600 underline">gemini.google.com</a>, find <strong>"Gems"</strong>, and select the premade gem <strong>"Storybook"</strong>.</li>
+                                            <li>Upload your photo to the chat (This serves as the hero reference).</li>
+                                            <li>Copy and paste the prompt below, replacing the bracketed text with your specific details.</li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Suggestions Box -->
+                                    <div class="mt-4 mb-4 p-4 bg-purple-100 rounded-lg border border-purple-300">
+                                        <p class="font-bold text-md text-google-purple mb-2">Suggestions for Replacements:</p>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                            <div>
+                                                <p class="font-semibold text-gray-700">Theme / Adventure:</p>
+                                                <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                    <li>The Hidden Treasure of Atlantis</li>
+                                                    <li>Saving the Space Station</li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-gray-700">Illustration Style:</p>
+                                                <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                    <li>Watercolor painting</li>
+                                                    <li>Digital comic art</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Prompt -->
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto mb-3">
+                                        <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Recommended Prompt:</p>
+                                        <pre class="whitespace-pre-wrap">Using the attached photo as a reference for the main character, create a storybook about [THEME/ADVENTURE]. The person in the photo is the hero. The story must be illustrated in a [ILLUSTRATION STYLE].</pre>
+                                    </div>
+
+                                    <!-- Sample Result Button -->
+                                    <div class="mt-4 p-4 bg-gray-100 rounded-lg border border-gray-300 flex flex-col items-start">
+                                        <p class="font-semibold text-gray-800 mb-2">Sample Result:</p>
+                                        <a href="https://gemini.google.com/share/9cf082b6c198" target="_blank" 
+                                           class="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-full shadow-lg text-white bg-google-blue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue transition duration-150 ease-in-out">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                                                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                                            </svg>
+                                            View Sample Storybook Result
+                                        </a>
+                                    </div>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Content 2: Deep Research -->
+                        <div id="content-research" class="tab-content-panel hidden">
+                            <h3 class="text-2xl font-bold text-google-green mb-3">🔬 Deep Research</h3>
+                            <p class="text-gray-700 mb-4">
+                                Utilize advanced reasoning capabilities to analyze complex topics, synthesize information from multiple sources, and perform structured, multi-step analysis.
+                            </p>
+                            <ul class="list-disc list-inside ml-4 text-md text-gray-600 space-y-2 p-3 bg-green-50 rounded-md border border-green-200">
+                                <li><strong>Focus:</strong> Provides comprehensive answers grounded in search or uploaded documents.</li>
+                                <li><strong>Benefit:</strong> Ideal for generating academic summaries, literature reviews, or detailed reports.</li>
+                            </ul>
+
+                            <div class="mt-8 pt-6 border-t border-gray-300">
+                                <div class="activity-header flex items-center mb-4">
+                                    <span class="text-3xl mr-3 text-google-green">🔬</span>
+                                    <h3 class="text-2xl font-bold text-google-green">Activity: Deep Research Report</h3>
+                                </div>
+
+                                <ol class="space-y-4">
+                                    <li class="p-4 rounded-xl bg-green-50 border-l-4 border-google-green shadow-sm">
+                                        <h4 class="font-bold text-gray-700 mb-2">Steps:</h4>
+                                        <ul class="list-decimal list-inside text-gray-700 space-y-1 ml-2">
+                                            <li>Go to <a href="https://gemini.google.com" target="_blank" class="text-blue-600 underline">gemini.google.com</a>.</li>
+                                            <li>Click <strong>‘Deep Research’</strong> at the prompt area.</li>
+                                            <li>Copy and paste the prompt below, replacing the bracketed text with your specific details.</li>
+                                        </ul>
+                                    </li>
+
+                                    <div class="mt-6 p-4 bg-green-100 rounded-lg border border-green-300">
+                                        <p class="font-bold text-md text-gray-700 mb-3">Option: Deep Research Report</p>
+                                        
+                                        <div class="mb-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                                            <p class="font-bold text-sm text-google-green mb-2">Suggestions for Replacements:</p>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                                <div>
+                                                    <p class="font-semibold text-gray-700">Chosen Topic:</p>
+                                                    <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                        <li>Impact of AI on Education</li>
+                                                        <li>Renewable Energy Solutions</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold text-gray-700">Educational Level:</p>
+                                                    <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                        <li>Secondary School</li>
+                                                        <li>Pre-University / Undergraduate</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto mb-3">
+                                            <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Prompt:</p>
+                                            <pre class="whitespace-pre-wrap">Conduct a deep research report on [CHOSEN TOPIC]. The report should be written for a [EDUCATIONAL LEVEL] audience and structured with the following sections: Introduction, Key Findings (with statistics), Pros and Cons, and a Conclusion.</pre>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4 p-4 bg-gray-100 rounded-lg border border-gray-300 flex flex-col items-start">
+                                        <p class="font-semibold text-gray-800 mb-2">Sample Result:</p>
+                                        <a href="https://gemini.google.com/share/a271e0583bf1" target="_blank" 
+                                           class="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-full shadow-lg text-white bg-google-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                                                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                                            </svg>
+                                            View Sample Research Report
+                                        </a>
+                                    </div>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Content 3: Canvas -->
+                        <div id="content-canvas" class="tab-content-panel hidden">
+                            <h3 class="text-2xl font-bold text-google-yellow mb-3">🎨 Canvas (Code & Educational Tool Generation)</h3>
+                            <p class="text-gray-700 mb-4">
+                                Canvas allows you to generate complete code files, including interactive simulations, educational games, or simple data visualizations using HTML, CSS, and JavaScript. This makes it an ideal tool for creating customized learning resources that can be run instantly.
+                            </p>
+                            <ul class="list-disc list-inside ml-4 text-md text-gray-600 space-y-2 p-3 bg-yellow-50 rounded-md border border-yellow-200">
+                                <li><strong>Application:</strong> Generate interactive code artifacts like Physics simulations, visual quizzes, or basic games for hands-on student practice.</li>
+                                <li><strong>Benefit:</strong> Provides immediate, runnable examples of complex concepts.</li>
+                            </ul>
+
+                            <div class="mt-8 pt-6 border-t border-gray-300">
+                                <div class="activity-header flex items-center mb-4">
+                                    <span class="text-3xl mr-3 text-google-yellow">🎨</span>
+                                    <h3 class="text-2xl font-bold text-google-yellow">Activity: Generate Educational Tools</h3>
+                                </div>
+
+                                <ol class="space-y-4">
+                                    <li class="p-4 rounded-xl bg-yellow-50 border-l-4 border-google-yellow shadow-sm">
+                                        <h4 class="font-bold text-gray-700 mb-2">Steps:</h4>
+                                        <ul class="list-decimal list-inside text-gray-700 space-y-1 ml-2">
+                                            <li>Go to <a href="https://gemini.google.com" target="_blank" class="text-blue-600 underline">gemini.google.com</a>.</li>
+                                            <li>Click <strong>‘Canvas’</strong> in the prompt area.</li>
+                                            <li>Copy and paste one of the prompts below, then preview the result.</li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <div class="mt-6 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
+                                        <p class="font-bold text-md text-gray-700 mb-3">Option 1: Educational Game</p>
+
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto mb-3">
+                                            <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Prompt:</p>
+                                            <pre class="whitespace-pre-wrap">Create a recycling shooting game. The user needs to shoot recyclable items into bins located at the bottom. The goal is to match the item to the correct colored bin (Blue for paper, Brown for glass, Orange for plastic and metal). The user can move left or right at the top with the item using the arrow keys and shoot using the spacebar. Build this using HTML and Tailwind CSS, keeping the style minimalist and fun.</pre>
+                                        </div>
+
+                                        <div class="mt-4 p-4 bg-gray-100 rounded-lg border border-gray-300 flex flex-col items-start">
+                                            <p class="font-semibold text-gray-800 mb-2">Sample Result:</p>
+                                            <a href="https://gemini.google.com/share/4b166bda9b6c" target="_blank" 
+                                               class="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-full shadow-lg text-white bg-google-yellow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-yellow transition duration-150 ease-in-out">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                                                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                                                </svg>
+                                                View Sample Game Result
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-6 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
+                                        <p class="font-bold text-md text-gray-700 mb-3">Option 2: Data Visualization</p>
+                                        
+                                        <div class="mb-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                            <p class="font-bold text-sm text-google-yellow mb-2">Suggestions for Replacements:</p>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                                <div>
+                                                    <p class="font-semibold text-gray-700">Chart Type:</p>
+                                                    <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                        <li>Bar chart</li>
+                                                        <li>Pie chart</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold text-gray-700">Data Topic:</p>
+                                                    <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                        <li>Planetary sizes</li>
+                                                        <li>Rainfall patterns</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold text-gray-700">Interaction:</p>
+                                                    <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                        <li>Highlight on hover</li>
+                                                        <li>Tooltip on click</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto mb-3">
+                                            <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Prompt:</p>
+                                            <pre class="whitespace-pre-wrap">Using HTML Canvas, JavaScript, and Tailwind CSS, create an interactive [CHART TYPE] to visualize fictitious data related to [DATA TOPIC]. The chart must include an [INTERACTION] feature.</pre>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-6 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
+                                        <p class="font-bold text-md text-gray-700 mb-3">Option 3: Professional Document Drafting</p>
+                                        
+                                        <p class="font-semibold text-gray-700 mt-4 mb-2">Prompt 1: Opening Speech (Integrity & Accountability)</p>
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto mb-3">
+                                            <pre class="whitespace-pre-wrap">I need a draft for an opening speech for the Department's Official Assembly next week. The content must center on 'Integrity and Accountability' as core values. The speech should be inspiring, professional, and concise.</pre>
+                                        </div>
+                                        
+                                        <p class="font-semibold text-gray-700 mt-4 mb-2">Prompt 2: Project Proposal Draft (Digital Literacy Week)</p>
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto mb-3">
+                                            <pre class="whitespace-pre-wrap">Prepare an initial proposal draft for 'Digital Literacy Week' aimed at strengthening student digital competencies. Include:
+- Project Justification
+- Proposed Activity List
+- Working Committee Structure
+- Estimated Budget and Financial Implications</pre>
+                                        </div>
+
+                                        <p class="font-semibold text-gray-700 mt-4 mb-2">Prompt 3: Math Performance Analysis & Intervention</p>
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto">
+                                            <pre class="whitespace-pre-wrap">Analyze student performance marks in Mathematics ([Insert Your Data Here]) and provide a summary of key trends (e.g., weakest topics, low-performing student groups). Suggest three pedagogical intervention strategies to address these performance issues.</pre>
+                                        </div>
+                                        <div class="mt-4 mb-2">
+                                            <a href="https://docs.google.com/spreadsheets/d/1XocqYFzqkgCfGwpIdjj0iB3zzKAbCTwOBnIQ2c93Kmw/edit?usp=sharing" target="_blank" 
+                                               class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-lg text-white bg-google-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-green transition duration-150 ease-in-out">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M4 4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4z" />
+                                                    <path fill-rule="evenodd" d="M15.586 11.414A1 1 0 0015 10v-3a1 1 0 10-2 0v2.586l-1.293-1.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00.073-1.48z" clip-rule="evenodd" />
+                                                </svg>
+                                                Reference Data (Sample Marks)
+                                            </a>
+                                        </div>
+                                    </div>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Content 4: Guided Learning -->
+                        <div id="content-learning" class="tab-content-panel hidden">
+                            <h3 class="text-2xl font-bold text-google-red mb-3">🧭 Guided Learning</h3>
+                            <p class="text-gray-700 mb-4">
+                                An interactive, conversational experience designed to support student learning through structured, step-by-step guidance.
+                            </p>
+                            <ul class="list-disc list-inside ml-4 text-md text-gray-600 space-y-2 p-3 bg-red-50 rounded-md border border-red-200">
+                                <li><strong>Process:</strong> Breaks down difficult concepts, provides practice problems, and offers personalized feedback.</li>
+                                <li><strong>Benefit:</strong> Acts as a 24/7 personalized tutor, reinforcing concepts taught in the classroom.</li>
+                            </ul>
+
+                            <div class="mt-8 pt-6 border-t border-gray-300">
+                                <div class="activity-header flex items-center mb-4">
+                                    <span class="text-3xl mr-3 text-google-red">🧭</span>
+                                    <h3 class="text-2xl font-bold text-google-red">Activity: Content-Based Tutoring</h3>
+                                </div>
+
+                                <ol class="space-y-4">
+                                    <li class="p-4 rounded-xl bg-red-50 border-l-4 border-google-red shadow-sm">
+                                        <h4 class="font-bold text-gray-700 mb-2">Steps:</h4>
+                                        <ul class="list-decimal list-inside text-gray-700 space-y-1 ml-2">
+                                            <li>Go to <a href="https://gemini.google.com" target="_blank" class="text-blue-600 underline">gemini.google.com</a>.</li>
+                                            <li>Click <strong>‘Guided Learning’</strong> at the prompt area.</li>
+                                            <li><strong class="font-bold">Download or screenshot this sample image:</strong></li>
+                                            <div class="mt-2 mb-4">
+                                                <a href="https://drive.google.com/file/d/1ci32cQRdsibv6InvjydJVALQsziXxorD/view?usp=sharing" target="_blank" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-google-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-red transition duration-150 ease-in-out">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M3 17a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10zM5 7h10v10H5V7zm5 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    Download Sample Textbook Image
+                                                </a>
+                                            </div>
+                                            <li>Upload a photo of textbook content (or the sample above).</li>
+                                            <li>Copy and paste the prompt below.</li>
+                                        </ul>
+                                    </li>
+
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto">
+                                        <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Recommended Prompt:</p>
+                                        <pre class="whitespace-pre-wrap">Based on this image, there are three stages of the Stone Age. What are the characteristics of these 3 stages?</pre>
+                                    </div>
+                                    
+                                    <div class="mt-4 p-4 bg-red-100 rounded-lg border border-red-300">
+                                        <p class="font-semibold text-gray-700 mb-2">Optional: Interactive Quiz Prompt:</p>
+                                        
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-3">
+                                            <div>
+                                                <p class="font-semibold text-gray-700">Historical Event:</p>
+                                                <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                    <li>World War II</li>
+                                                    <li>The Industrial Revolution</li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-gray-700">Student Age:</p>
+                                                <ul class="list-disc list-inside ml-4 text-gray-600">
+                                                    <li>14 years old</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-xs overflow-x-auto mt-3">
+                                            <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Prompt:</p>
+                                            <pre class="whitespace-pre-wrap">Act as a tutor for a student learning about [HISTORICAL EVENT]. Create a five-question interactive quiz, explaining the correct answer after each guess. Adapt the language for a [STUDENT AGE].</pre>
+                                        </div>
+                                    </div>
+
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Content 5: Create Images -->
+                        <div id="content-images" class="tab-content-panel hidden">
+                            <h3 class="text-2xl font-bold text-google-cyan mb-3">🖼️ Create Images (Visual Generation)</h3>
+                            <p class="text-gray-700 mb-4">
+                                Gemini can generate high-quality images directly from text descriptions. This is a powerful tool for visual storytelling, creating promotional materials for school events, or providing visual aids for complex scientific or historical concepts.
+                            </p>
+                            <ul class="list-disc list-inside ml-4 text-md text-gray-600 space-y-2 p-3 bg-cyan-50 rounded-md border border-cyan-200">
+                                <li><strong>Focus:</strong> Translates descriptive prompts into stunning visual assets.</li>
+                                <li><strong>Benefit:</strong> Saves time on searching for stock photos and allows for perfectly customized illustrations.</li>
+                            </ul>
+
+                            <div class="mt-8 pt-6 border-t border-gray-300">
+                                <div class="activity-header flex items-center mb-4">
+                                    <span class="text-3xl mr-3 text-google-cyan">🖼️</span>
+                                    <h3 class="text-2xl font-bold text-google-cyan">Activity: Generate Custom Visuals</h3>
+                                </div>
+
+                                <ol class="space-y-4">
+                                    <li class="p-4 rounded-xl bg-cyan-50 border-l-4 border-google-cyan shadow-sm">
+                                        <h4 class="font-bold text-gray-700 mb-2">Steps:</h4>
+                                        <ul class="list-decimal list-inside text-gray-700 space-y-1 ml-2">
+                                            <li>Go to <a href="https://gemini.google.com" target="_blank" class="text-blue-600 underline">gemini.google.com</a>.</li>
+                                            <li>Simply type your prompt in the chat area (Gemini identifies image requests automatically) OR click <strong>‘Create images’</strong> at the prompt area.</li>
+                                            <li>Choose an option below and replace the bracketed text with your ideas.</li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Option 1: Story Illustration -->
+                                    <div class="mt-6 p-4 bg-cyan-100 rounded-lg border border-cyan-300">
+                                        <p class="font-bold text-md text-gray-700 mb-3">Option 1: Story Illustration</p>
+                                        <div class="mb-3 p-3 bg-cyan-50 rounded-md border border-cyan-200 text-sm">
+                                            <p class="font-semibold text-gray-700 mb-1">Ideas to replace:</p>
+                                            <ul class="list-disc list-inside text-gray-600">
+                                                <li><strong>Scene:</strong> A futuristic city on Mars, A magical library in a forest.</li>
+                                                <li><strong>Style:</strong> 3D Pixar-style animation, Vintage watercolor sketch.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto">
+                                            <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Prompt Template:</p>
+                                            <pre class="whitespace-pre-wrap">Generate an illustration of [SCENE]. The art style should be [STYLE]. Ensure the lighting is atmospheric and colors are vibrant.</pre>
+                                        </div>
+                                    </div>
+
+                                    <!-- Option 2: Webinar Poster -->
+                                    <div class="mt-4 p-4 bg-cyan-100 rounded-lg border border-cyan-300">
+                                        <p class="font-bold text-md text-gray-700 mb-3">Option 2: Webinar / Event Poster</p>
+                                        <div class="mb-3 p-3 bg-cyan-50 rounded-md border border-cyan-200 text-sm">
+                                            <p class="font-semibold text-gray-700 mb-1">Ideas to replace:</p>
+                                            <ul class="list-disc list-inside text-gray-600">
+                                                <li><strong>Topic:</strong> Cybersecurity for Students, Mental Health Awareness.</li>
+                                                <li><strong>Elements:</strong> Abstract digital patterns, Friendly diverse people.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto">
+                                            <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Prompt Template:</p>
+                                            <pre class="whitespace-pre-wrap">Create a professional poster background for a webinar titled "[TOPIC]". Include visual elements of [ELEMENTS]. The design should be modern with space for text overlay.</pre>
+                                        </div>
+                                    </div>
+
+                                    <!-- Option 3: Creative Art Project -->
+                                    <div class="mt-4 p-4 bg-cyan-100 rounded-lg border border-cyan-300">
+                                        <p class="font-bold text-md text-gray-700 mb-3">Option 3: Creative Art Projects</p>
+                                        <div class="mb-3 p-3 bg-cyan-50 rounded-md border border-cyan-200 text-sm">
+                                            <p class="font-semibold text-gray-700 mb-1">Ideas to replace:</p>
+                                            <ul class="list-disc list-inside text-gray-600">
+                                                <li><strong>Concept:</strong> A fusion of a cat and an owl, An underwater castle made of coral.</li>
+                                                <li><strong>Medium:</strong> Oil painting on canvas, Low-poly 3D art.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 font-mono text-sm overflow-x-auto">
+                                            <p class="font-bold text-gray-500 mb-1 uppercase text-xs">Prompt Template:</p>
+                                            <pre class="whitespace-pre-wrap">Generate a creative artwork of [CONCEPT]. Use the medium of [MEDIUM]. Make it highly detailed and imaginative.</pre>
+                                        </div>
+                                    </div>
+                                </ol>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
